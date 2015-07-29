@@ -17,7 +17,9 @@ This Docker image is based on the [alpine:3.2](https://registry.hub.docker.com/_
 ```
 # Make hugo directory
 HUGO_DIRECTORY="/opt/hugo"
+HUGO_THEME="casper"
 YOUR_IPADDR="127.0.0.1"
+
 
 mkdir ${HUGO_DIRECTORY}
 chown 5000 ${HUGO_DIRECTORY}
@@ -25,21 +27,21 @@ chown 5000 ${HUGO_DIRECTORY}
 # Create site
 docker run --rm -it --volume="${HUGO_DIRECTORY}:/www" uzyexe/hugo new site .
 
-# Create content
-docker run --rm -it --volume="${HUGO_DIRECTORY}:/www" uzyexe/hugo new about.md
-echo # Hello World >> ${HUGO_DIRECTORY}/about.md
-
 # Download Theme 
 # https://github.com/spf13/hugoThemes/
-git clone https://github.com/TiTi/hurock.git ${HUGO_DIRECTORY}/themes/hurock
+git clone https://github.com/vjeantet/hugo-theme-${HUGO_THEME}.git ${HUGO_DIRECTORY}/themes/${HUGO_THEME}
+
+# Apply Theme
+docker run --rm -it --volume="${HUGO_DIRECTORY}:/www" uzyexe/hugo -t ${HUGO_THEME}
 
 # Edit config.toml (Check it theme README.md sample config.toml) 
 vi ${HUGO_DIRECTORY}/config.toml
 
-# Apply Theme
-docker run --rm -it --volume="${HUGO_DIRECTORY}:/www" uzyexe/hugohugo -t hurock
+# Create content
+docker run --rm -it --volume="${HUGO_DIRECTORY}:/www" uzyexe/hugo new -t ${HUGO_THEME} post/about.md
+echo "# Hello World" >> ${HUGO_DIRECTORY}/content/post/about.md
 
 # Preview and public content auto generate
-docker run --rm -it --net=host --volume="${HUGO_DIRECTORY}:/www" uzyexe/hugo server --theme=hurock --buildDrafts --watch --bind=${YOUR_IPADDR} --baseUrl=http://${YOUR_IPADDR}:1313
+docker run --rm -it --net=host --volume="${HUGO_DIRECTORY}:/www" uzyexe/hugo server --theme=${HUGO_THEME} --buildDrafts --watch --bind=${YOUR_IPADDR} --baseUrl=http://${YOUR_IPADDR}:1313
 
 ```
