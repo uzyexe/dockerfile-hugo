@@ -18,7 +18,7 @@ This Docker image is based on the [alpine:3.2](https://registry.hub.docker.com/_
 # Make hugo directory
 HUGO_DIRECTORY="/opt/hugo"
 HUGO_THEME="casper"
-YOUR_IPADDR="127.0.0.1"
+YOUR_IPADDR=YOUR_IPADDR
 
 
 mkdir ${HUGO_DIRECTORY}
