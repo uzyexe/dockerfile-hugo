@@ -37,7 +37,7 @@ git clone https://github.com/TiTi/hurock.git ${HUGO_DIRECTORY}/themes/hurock
 vi ${HUGO_DIRECTORY}/config.toml
 
 # Apply Theme
-docker run --rm -it --volume="${HUGO_DIRECTORY}:/www" uzyexe/hugohugo -t hugo-zen
+docker run --rm -it --volume="${HUGO_DIRECTORY}:/www" uzyexe/hugohugo -t hurock
 
 # Preview and public content auto generate
 docker run --rm -it --net=host --volume="${HUGO_DIRECTORY}:/www" uzyexe/hugo server --theme=hurock --buildDrafts --watch --bind=${YOUR_IPADDR} --baseUrl=http://{YOUR_IPADDR}:1313
