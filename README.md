@@ -40,6 +40,6 @@ vi ${HUGO_DIRECTORY}/config.toml
 docker run --rm -it --volume="${HUGO_DIRECTORY}:/www" uzyexe/hugohugo -t hugo-zen
 
 # Preview and public content auto generate
-docker run --rm -it -p 1313:1313 --volume="${HUGO_DIRECTORY}:/www" uzyexe/hugo server --theme=hurock --buildDrafts --watch --bind=${YOUR_IPADDR} --baseUrl=http://{YOUR_IPADDR}:1313
+docker run --rm -it --net=host --volume="${HUGO_DIRECTORY}:/www" uzyexe/hugo server --theme=hurock --buildDrafts --watch --bind=${YOUR_IPADDR} --baseUrl=http://{YOUR_IPADDR}:1313
 
 ```
